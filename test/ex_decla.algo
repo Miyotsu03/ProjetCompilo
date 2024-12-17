@@ -1,0 +1,5 @@
+MAIN()
+VAR toto; VAR tutaupe; VAR personnel; VAR hasard; VAR _lourd; VAR tmp_list;
+DEBUT 
+	toto;
+FIN

@@ -1,0 +1,6 @@
+MAIN()
+VAR toto;
+DEBUT 
+	toto <- 2;
+	toto <- toto + 8;
+FIN

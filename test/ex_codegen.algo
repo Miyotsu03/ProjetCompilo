@@ -1,0 +1,5 @@
+MAIN()
+VAR toto;
+DEBUT
+	toto <- 2+5;
+FIN

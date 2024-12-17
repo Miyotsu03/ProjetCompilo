@@ -1,0 +1,6 @@
+MAIN()
+DEBUT
+    TQ 3 FAIRE
+        2+1;
+    FTQ
+FIN
