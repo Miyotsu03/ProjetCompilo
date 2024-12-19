@@ -1,0 +1,19 @@
+LIEN DU COURS OPENCLASSROOM: 
+
+    https://openclassrooms.com/fr/courses/7162856-gerez-du-code-avec-git-et-github/7165726-travaillez-depuis-votre-depot-local-git
+
+
+
+git commit -m “Modification du titre H1”
+     -m (comme message) est ce qu'on appelle un argument, qui est ajouté à la commande 
+     principale. Ici "-m" permet de définir un message particulier rattaché au commit 
+     effectué. Si vous n’utilisez pas cet argument, la commande “git commit” ouvrira un 
+     éditeur de texte dans lequel vous pourrez saisir le message de commit.
+
+
+
+git push -u origin main 
+
+    En indiquant  origin  suivi du nom de la branche, ici  main , 
+    toutes les modifications faites sur la branche main seront bien envoyées 
+    sur cette branche et ne mettront pas à jour tout votre repository.

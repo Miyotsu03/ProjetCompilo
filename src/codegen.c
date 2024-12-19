@@ -98,7 +98,6 @@ static void codegenAFFECT(ast * p){
 static void codegenLINST(ast * p){
     codegen(p->noeud[0]);
     codegen(p->noeud[1]);
-    EMPILER();
 }
 
 static void codegenTQ(ast * p){

@@ -21,7 +21,9 @@ ast * CreerNoeudOP(int ope, ast *p1, ast *p2){
 	ast * p;
 	INIT_NOEUD(p);
 	p->type = AST_OP;
-	strcpy(p->type_str, "OP");
+  char operateur[4] = "OP  ";     
+  operateur[3] = ope;             //Afficher l operateur correspondant
+	strcpy(p->type_str, operateur);
 	p->ope = ope;
 	p->noeud[0] = p1;
 	p->noeud[1] = p2;
