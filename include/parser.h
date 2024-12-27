@@ -63,7 +63,11 @@ extern int yydebug;
     FIN = 264,                     /* FIN  */
     TQ = 265,                      /* TQ  */
     FAIRE = 266,                   /* FAIRE  */
-    FTQ = 267                      /* FTQ  */
+    FTQ = 267,                     /* FTQ  */
+    SI = 268,                      /* SI  */
+    SINON = 269,                   /* SINON  */
+    ALORS = 270,                   /* ALORS  */
+    FSI = 271                      /* FSI  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -79,7 +83,7 @@ union YYSTYPE
   struct ast * arbre;
  
 
-#line 83 "src/parser.h"
+#line 87 "src/parser.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

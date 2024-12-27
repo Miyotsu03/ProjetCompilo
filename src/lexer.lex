@@ -37,18 +37,22 @@ ID				{LETTRE}({LETTRE}|{CHIFFRE})*
 
 %%
 
-"MAIN"			{return MAIN; }
-"VAR"       {return VAR; }
-"DEBUT"			{return DEBUT; }
-"<-"        {printf("Reconnu FLECHE token\n"); return FLECHE; }
-"FIN"			  {return FIN; }
-"TQ"        {return TQ; }
-"FAIRE"     {return FAIRE ;}
-"FTQ"       {return FTQ ;}
-[-+*/%();]		{return yytext[0]; }
-{NOMBRE}        { yylval.nb = atoi(yytext); return NB; }
-{ID}			{ strcpy(yylval.id, yytext); return ID; }
-[ \t\n]			{}
+"MAIN"		    {return MAIN;}
+"VAR"       	{return VAR;}
+"DEBUT"		    {return DEBUT;}
+"<-"        	{printf("Reconnu FLECHE token\n"); return FLECHE; }
+"FIN"		      {return FIN;}
+"TQ"        	{return TQ;}
+"FAIRE"     	{return FAIRE;}
+"FTQ"       	{return FTQ;}
+"SI"     	    {return SI;}
+"SINON"       {return SINON;}
+"ALORS"      	{return ALORS;}
+"FSI"       	{return FSI;}
+[-+*/%();<=>!]	{return yytext[0];}
+{NOMBRE}        {yylval.nb = atoi(yytext); return NB;}
+{ID}		{ strcpy(yylval.id, yytext); return ID;}
+[ \t\n]		{}
 .               {           
                   sprintf(errmsg,charerr, yytext[0]);
 		  yyerror(errmsg);

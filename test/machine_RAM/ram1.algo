@@ -1,0 +1,7 @@
+MAIN()
+VAR toto;
+DEBUT
+    1+1;
+    3*8;
+    9/3;
+FIN

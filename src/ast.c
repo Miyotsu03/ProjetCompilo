@@ -6,6 +6,7 @@ static void PrintID(ast *p, char * indent);
 static void PrintLINST(ast *p, char * indent);
 static void PrintAFFECT(ast *p, char * indent);
 static void PrintTQ(ast *p, char * indent);
+static void PrintSI(ast *p, char * indent);
 
 
 ast * CreerFeuilleNB(int nb){
@@ -45,8 +46,8 @@ ast * CreerNoeudAFFECT(char * identifiant, ast * p1){
   INIT_NOEUD(p);
   p->type = AST_AFFECT;
   strcpy(p->type_str, "<-");
-  strcpy(p->id, identifiant);
-  p->noeud[0] = p1;
+  p->noeud[0] = CreerFeuilleID(identifiant);
+  p->noeud[1] = p1;
   return p;
 }
 
@@ -59,6 +60,18 @@ ast * CreerNoeudTQ(ast * exp, ast * linst){
   p->noeud[1] = linst;
   return p;
 }
+
+ast * CreerNoeudSI (ast * p1, ast * p2, ast * p3){
+  ast * p;
+  INIT_NOEUD(p);
+  p->type = AST_SI;
+  strcpy(p->type_str, "SI");
+  p->noeud[0] = p1;
+  p->noeud[1] = p2;
+  p->noeud[2] = p3;
+  return p;
+}
+
 
 ast * CreerFeuilleID(char * s){
 	ast * p;
@@ -103,6 +116,9 @@ void PrintAst(ast * p){
   case AST_TQ:
     PrintTQ(p, indent);
   break;
+  case AST_SI:
+    PrintSI(p, indent);
+  break;
   default:
     fprintf(stderr,"[Erreur] type <%d>: %s non reconnu\n",p->type,p->type_str);
     break;
@@ -133,7 +149,7 @@ static void PrintID(ast *p, char * indent){
 	printf("%s" TXT_BOLD TXT_BLUE "Noeud:  " TXT_NULL "%p\n",indent, p);
 	printf("%s" TXT_BOLD "Type:   " TXT_NULL "%s\n",indent, p->type_str);
 	printf("%s" TXT_BOLD "ID:   " TXT_NULL "%s\n",indent, p->id);
-	
+ printf("%s" TXT_BOLD "Valeur: " TXT_NULL "%d\n",indent, p->valeur);	
 	
 }
 
@@ -156,9 +172,9 @@ static void PrintAFFECT(ast *p, char * indent){
   printf("%s" TXT_BOLD TXT_BLUE "Noeud:  " TXT_NULL "%p\n",indent, p);
   printf("%s" TXT_BOLD "Type:   " TXT_NULL "%s\n",indent, p->type_str);
   
-  printf("%s" TXT_BOLD "ID:   " TXT_NULL "%s\n",indent, p->id);
   profondeur++;
   PrintAst(p->noeud[0]);
+  PrintAst(p->noeud[1]);
   profondeur--;
 }
 
@@ -171,5 +187,19 @@ static void PrintTQ(ast *p, char * indent){
   profondeur++;
   PrintAst(p->noeud[0]);
   PrintAst(p->noeud[1]);
+  profondeur--;
+}
+
+static void PrintSI(ast *p, char * indent){
+  printf("%s" TXT_BOLD TXT_BLUE "Noeud:  " TXT_NULL "%p\n",indent, p);
+  printf("%s" TXT_BOLD "Type:   " TXT_NULL "%s\n",indent, p->type_str);
+  printf("%s" TXT_BOLD "Condition de SI:   " TXT_NULL "%p\n",indent, p->noeud[0]);
+  printf("%s" TXT_BOLD "Instructions ALORS:   " TXT_NULL "%p\n",indent, p->noeud[1]);
+  printf("%s" TXT_BOLD "Instructions SINON:   " TXT_NULL "%p\n",indent, p->noeud[2]);
+  
+  profondeur++;
+  PrintAst(p->noeud[0]);
+  PrintAst(p->noeud[1]);
+  PrintAst(p->noeud[2]);
   profondeur--;
 }

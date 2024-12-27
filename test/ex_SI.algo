@@ -1,0 +1,8 @@
+MAIN()
+DEBUT
+SI 3 ALORS
+    45;
+SINON 
+    0;
+FSI
+FIN

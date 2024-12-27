@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "semantic.h": "c",
+        "codegen.h": "c",
+        "cstdlib": "c"
+    }
+}

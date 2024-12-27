@@ -13,11 +13,14 @@ int main(void){
 
     
     ajouter_id(TABLE_SYMB, "toto");
-    ajouter_id(TABLE_SYMB, "tutu");
-    ajouter_id(TABLE_SYMB, "titi");
+    //ajouter_id(TABLE_SYMB, "tutu");
+    //ajouter_id(TABLE_SYMB, "titi");
     ast * p4 = CreerNoeudAFFECT("toto", p1);
+    ast * p7 = CreerNoeudLINST(p4, NULL);
+    //ast * p5 = CreerFeuilleNB(30);
+    //ast * p6 = CreerNoeudOP('+', p1, p5);
     codegenINIT();
-    codegen(p4);
+    codegen(p7);
 /*
     ajouter_id(TABSYMB, "toto");
     printf("tabsymb[0] : %s\n", TABSYMB[0].id );

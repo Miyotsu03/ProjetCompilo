@@ -24,7 +24,7 @@
     p->codelen = 0; \
   }								\
 
-enum {AST_NB = 256, AST_OP, AST_ID,AST_INST, AST_LINST, AST_AFFECT, AST_TQ} ;
+enum {AST_NB = 256, AST_OP, AST_ID,AST_INST, AST_LINST, AST_AFFECT, AST_TQ, AST_SI} ;
 
 typedef struct ast{
   int  type;
@@ -32,7 +32,7 @@ typedef struct ast{
   char id[32];
   int valeur;
   int ope;
-  struct ast *noeud[2];
+  struct ast *noeud[3];
   int codelen;
 } ast;
 
@@ -45,6 +45,7 @@ ast * CreerNoeudOP(int ope, ast *p1, ast *p2);
 ast * CreerNoeudLINST(ast * p1, ast * p2);
 ast * CreerNoeudAFFECT(char * id, ast * p1);
 ast * CreerNoeudTQ(ast * exp, ast * linst);
+ast * CreerNoeudSI (ast * p1, ast * p2, ast * p3);
 
 void FreeAst(ast * p);
 

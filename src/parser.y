@@ -34,6 +34,7 @@
 %type <arbre> LINST
 %type <arbre> AFFECT
 %type <arbre> STRUCT_TQ
+%type <arbre> STRUCT_SI
 
 
 %define parse.error detailed
@@ -43,10 +44,12 @@
 %token <id> ID 
 %token FLECHE "<-"
 %token VAR
-%token MAIN DEBUT FIN TQ FAIRE FTQ
-%right "<-"
+%token MAIN DEBUT FIN TQ FAIRE FTQ SI SINON ALORS FSI
+%left '='
+%left '<' '>' '!'
 %left '+' '-'
 %left '*' '/' '%'
+%right "<-"
 %start PROGRAMME
 
 %%
@@ -55,40 +58,52 @@ PROGRAMME:
 	MAIN '(' ')'
   DECLA
 	DEBUT
-		LINST	{ARBRE_ABSTRAIT = $6;}
+		LINST	        {ARBRE_ABSTRAIT = $6;}
 	FIN
 ;
 
-EXP : NB 		{$$ = CreerFeuilleNB($1); }
-| ID			{$$ = CreerFeuilleID($1); }
-| EXP '+' EXP	{$$ = CreerNoeudOP('+', $1, $3); }
-| EXP '-' EXP	{$$ = CreerNoeudOP('-', $1, $3); }
-| EXP '*' EXP	{$$ = CreerNoeudOP('*', $1, $3); }
-| EXP '/' EXP	{$$ = CreerNoeudOP('/', $1, $3); }
-| EXP '%' EXP	{$$ = CreerNoeudOP('%', $1, $3); }
-| '(' EXP ')'	{$$ = $2; }
+EXP : NB 			    {$$ = CreerFeuilleNB($1); }
+| ID				      {$$ = CreerFeuilleID($1); }
+| EXP '+' EXP			{$$ = CreerNoeudOP('+', $1, $3); }
+| EXP '-' EXP			{$$ = CreerNoeudOP('-', $1, $3); }
+| EXP '*' EXP			{$$ = CreerNoeudOP('*', $1, $3); }
+| EXP '/' EXP			{$$ = CreerNoeudOP('/', $1, $3); }
+| EXP '%' EXP			{$$ = CreerNoeudOP('%', $1, $3); }
+| '(' EXP ')'			{$$ = $2; }
+| EXP '<' EXP			{$$ = CreerNoeudOP('<', $1, $3); }
+| EXP '=' EXP			{$$ = CreerNoeudOP('=', $1, $3); }
+| EXP '>' EXP			{$$ = CreerNoeudOP('>', $1, $3); }
+| EXP '!' EXP			{$$ = CreerNoeudOP('!', $1, $3); }
 ;
 
 DECLA : %empty
 | VAR ID ';' DECLA  {ajouter_id(TABLE_SYMB, $2); }
 ;
 
-AFFECT : ID "<-" EXP ';'  {$$ = CreerNoeudAFFECT($1, $3); }
-| ID "<-" AFFECT ';'      {$$ = CreerNoeudAFFECT($1, $3); }
+AFFECT : ID "<-" EXP ';'	{$$ = CreerNoeudAFFECT($1, $3); }
+| ID "<-" AFFECT ';'      	{$$ = CreerNoeudAFFECT($1, $3); }
 ;
 
-INST : EXP ';'    {$$ = $1; }
-| AFFECT          {$$ = $1; }
+INST : EXP ';'    		{$$ = $1; }
+| AFFECT          		{$$ = $1; }
 | STRUCT_TQ
+| STRUCT_SI
 ;
 
-LINST : INST    {$$ = CreerNoeudLINST($1, NULL); }
-| INST LINST    {$$ = CreerNoeudLINST($1, $2); }
+LINST : INST    		{$$ = CreerNoeudLINST($1, NULL); }
+| INST LINST    		{$$ = CreerNoeudLINST($1, $2); }
 ;
 
 STRUCT_TQ : TQ EXP FAIRE
               LINST
-            FTQ       {$$ = CreerNoeudTQ($2, $4); }
+            FTQ       		{$$ = CreerNoeudTQ($2, $4); }
+
+STRUCT_SI : SI EXP ALORS
+              LINST
+            SINON
+              LINST
+            FSI       		{$$ = CreerNoeudSI($2, $4, $6); }
+
 
 %%
 
