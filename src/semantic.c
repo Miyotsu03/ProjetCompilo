@@ -13,10 +13,45 @@ void semantic (ast * p){
         case AST_OP:
             semantic(p->noeud[0]);
             semantic(p->noeud[1]);
-            p->codelen = p->noeud[0]->codelen + 
-                p->noeud[1]->codelen +
-                NB_INST_EMPILER + 2 * NB_INST_DEPILER + 2;
-            printf("AST_OP: codelen = %d\n", p->codelen);        
+            
+            switch (p->ope){
+                case '+':
+                    p->codelen = p->noeud[0]->codelen + 
+                        p->noeud[1]->codelen +
+                        NB_INST_EMPILER + 2 * NB_INST_DEPILER + 2;
+                    printf("AST_OP: codelen = %d\n", p->codelen);        
+                break;
+                case '-':
+                    p->codelen = p->noeud[0]->codelen + 
+                        p->noeud[1]->codelen +
+                        NB_INST_EMPILER + 2 * NB_INST_DEPILER + 2;
+                    printf("AST_OP: codelen = %d\n", p->codelen);        
+                break;
+                case '*':
+                    p->codelen = p->noeud[0]->codelen + 
+                        p->noeud[1]->codelen +
+                        NB_INST_EMPILER + 2 * NB_INST_DEPILER + 2;
+                    printf("AST_OP: codelen = %d\n", p->codelen);        
+                break;
+                case '/':
+                    p->codelen = p->noeud[0]->codelen + 
+                        p->noeud[1]->codelen +
+                        NB_INST_EMPILER + 2 * NB_INST_DEPILER + 2;
+                    printf("AST_OP: codelen = %d\n", p->codelen);        
+                break;
+                case '%':
+                    p->codelen = p->noeud[0]->codelen + 
+                        p->noeud[1]->codelen +
+                        NB_INST_EMPILER + 2 * NB_INST_DEPILER + 2;
+                    printf("AST_OP: codelen = %d\n", p->codelen);        
+                break;
+                case '>':
+                    p->codelen = p->noeud[0]->codelen + 
+                        p->noeud[1]->codelen +
+                        NB_INST_EMPILER + 2 * NB_INST_DEPILER + 7;
+                    printf("AST_OP: codelen = %d\n", p->codelen);        
+                break;
+            }
         break;
         case AST_LINST:
             semantic(p->noeud[0]);

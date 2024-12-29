@@ -2,9 +2,7 @@ MAIN()
 VAR toto;
 DEBUT
     toto <- 1;
-    SI toto ALORS
-        toto <- toto - 1;
-    SINON
-        toto <- -1;
-    FSI
+    TQ toto > 0 FAIRE
+        toto - 1;
+    FTQ
 FIN

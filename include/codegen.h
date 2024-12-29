@@ -7,6 +7,7 @@
 #include "ts.h"
 #define __PREMIER_ADR__ 9
 #define __REG_TMP__ 1
+#define __REG_RESULT__ 8
 
 
 

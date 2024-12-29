@@ -75,8 +75,23 @@ static void codegenOP(ast * p){
         break;
         case '>':
             fprintf(out, "SUB %d\n", __REG_TMP__);
-           // __NUM__INST__++;
-            //fprintf(out, "JUMZ %d\n", __NUM__INST__ + p->codelen );
+
+           __NUM__INST__++;
+            fprintf(out, "JUMZ %d\n", __NUM__INST__ + 1); // Jump if result is zero (not greater)
+
+            // Ici gauche (noeud[0]) > droite (noeud[1])
+            __NUM__INST__++;
+            fprintf(out, "STORE %d\n", __REG_RESULT__); // Stocke le resultat (forcement >0 )
+            
+            // Jump a la fin de la comparaison
+            __NUM__INST__++;
+            fprintf(out, "JUMP %d\n", __NUM__INST__ + 1); // Jump to the end
+
+            // Fin de comparaison (jump) retourner la valeur(0)
+            __NUM__INST__++;
+            fprintf(out, "LOAD #0\n"); // Load false (0)
+            __NUM__INST__++;
+            fprintf(out, "STORE %d\n", __REG_RESULT__); // Store the result
         break;
 
     }
@@ -119,5 +134,12 @@ static void codegenTQ(ast * p){
 }
 
 static void codegenSI(ast * p){
-    int adr1 = __NUM__INST__;
+    codegen(p->noeud[0]);
+    __NUM__INST__++;
+    fprintf(out, "JUMZ %d\n", __NUM__INST__ + p->noeud[1]->codelen + p->noeud[2]->codelen);
+    codegen(p->noeud[1]);
+    __NUM__INST__++;
+    fprintf(out, "JUMP %d\n", __NUM__INST__ + p->noeud[2]->codelen);
+    codegen(p->noeud[2]);
+    fprintf(out, "STOP\n");
 }
