@@ -6,6 +6,7 @@
   #include "ast.h"
   #include "ts.h"
   #include "codegen.h"
+  #include "semantic.h"
     
   extern int yylex();
   static void print_file_error(char * s, char *errmsg);
@@ -86,8 +87,8 @@ AFFECT : ID "<-" EXP ';'	{$$ = CreerNoeudAFFECT($1, $3); }
 
 INST : EXP ';'    		{$$ = $1; }
 | AFFECT          		{$$ = $1; }
-| STRUCT_TQ
-| STRUCT_SI
+| STRUCT_TQ           {$$ = $1; }
+| STRUCT_SI           {$$ = $1; }
 ;
 
 LINST : INST    		{$$ = CreerNoeudLINST($1, NULL); }
@@ -131,6 +132,7 @@ int main( int argc, char * argv[] ) {
   Print_ts(TABLE_SYMB);
   PrintAst(ARBRE_ABSTRAIT);
   out = stdout;
+  semantic(ARBRE_ABSTRAIT);
   codegenINIT();
   codegen(ARBRE_ABSTRAIT);
   fclose(yyin);

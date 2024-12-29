@@ -73,6 +73,11 @@ static void codegenOP(ast * p){
         case '%':
             fprintf(out, "MOD %d\n", __REG_TMP__);
         break;
+        case '>':
+            fprintf(out, "SUB %d\n", __REG_TMP__);
+           // __NUM__INST__++;
+            //fprintf(out, "JUMZ %d\n", __NUM__INST__ + p->codelen );
+        break;
 
     }
     EMPILER();    
@@ -87,10 +92,9 @@ static void codegenID(ast * p){
 
 static void codegenAFFECT(ast * p){
     codegen(p->noeud[0]);
-    codegen(p->noeud[1]);
     DEPILER();
 
-    int adr = chercher_id(TABLE_SYMB, p->noeud[0]->id);
+    int adr = chercher_id(TABLE_SYMB, p->id);
     __NUM__INST__++;
     fprintf(out, "STORE %d\n", adr + __PREMIER_ADR__);
     EMPILER();
@@ -98,20 +102,20 @@ static void codegenAFFECT(ast * p){
 }
 
 static void codegenLINST(ast * p){
-    if (p->noeud[0] != NULL)
-        codegen(p->noeud[0]);
-    if (p->noeud[1] != NULL)
-        codegen(p->noeud[1]);
+    codegen(p->noeud[0]);
+    codegen(p->noeud[1]);
 }
 
 static void codegenTQ(ast * p){
     int adr1 = __NUM__INST__;
     codegen(p->noeud[0]);
     __NUM__INST__++;
-    fprintf(out, "JUMZ %d\n", __NUM__INST__ + p->noeud[0]->codelen + p->noeud[1]->codelen + 1);
+    fprintf(out, "JUMZ %d\n", __NUM__INST__ + p->noeud[1]->codelen);
     codegen(p->noeud[1]);
     __NUM__INST__++;
     fprintf(out, "JUMP %d\n", adr1);
+    __NUM__INST__++;
+    fprintf(out, "STOP \n");
 }
 
 static void codegenSI(ast * p){

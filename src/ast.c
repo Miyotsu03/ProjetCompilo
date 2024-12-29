@@ -46,8 +46,8 @@ ast * CreerNoeudAFFECT(char * identifiant, ast * p1){
   INIT_NOEUD(p);
   p->type = AST_AFFECT;
   strcpy(p->type_str, "<-");
-  p->noeud[0] = CreerFeuilleID(identifiant);
-  p->noeud[1] = p1;
+  strcpy(p->id, identifiant);
+  p->noeud[0] = p1;
   return p;
 }
 
@@ -148,14 +148,14 @@ static void PrintOP(ast *p, char * indent){
 static void PrintID(ast *p, char * indent){
 	printf("%s" TXT_BOLD TXT_BLUE "Noeud:  " TXT_NULL "%p\n",indent, p);
 	printf("%s" TXT_BOLD "Type:   " TXT_NULL "%s\n",indent, p->type_str);
-	printf("%s" TXT_BOLD "ID:   " TXT_NULL "%s\n",indent, p->id);
- printf("%s" TXT_BOLD "Valeur: " TXT_NULL "%d\n",indent, p->valeur);	
-	
+	printf("%s" TXT_BOLD "ID:   " TXT_NULL "%s\n",indent, p->id);	
 }
 
 static void PrintLINST(ast *p, char * indent){
   printf("%s" TXT_BOLD TXT_BLUE "Noeud:  " TXT_NULL "%p\n", indent, p);
   printf("%s" TXT_BOLD "Type:   " TXT_NULL "%s\n", indent, p->type_str);
+  printf("%s" TXT_BOLD TXT_BLUE "Noeud[0]:  " TXT_NULL "%p\n", indent, p->noeud[0]);
+  printf("%s" TXT_BOLD TXT_BLUE "Noeud[1]:  " TXT_NULL "%p\n", indent, p->noeud[1]);
   
   profondeur++;
   if (p->noeud[0] != NULL){
@@ -171,6 +171,7 @@ static void PrintLINST(ast *p, char * indent){
 static void PrintAFFECT(ast *p, char * indent){
   printf("%s" TXT_BOLD TXT_BLUE "Noeud:  " TXT_NULL "%p\n",indent, p);
   printf("%s" TXT_BOLD "Type:   " TXT_NULL "%s\n",indent, p->type_str);
+  printf("%s" TXT_BOLD "ID:   " TXT_NULL "%s\n",indent, p->id);
   
   profondeur++;
   PrintAst(p->noeud[0]);
