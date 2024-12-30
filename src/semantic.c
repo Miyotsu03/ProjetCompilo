@@ -37,19 +37,25 @@ void semantic (ast * p){
                     p->codelen = p->noeud[0]->codelen + 
                         p->noeud[1]->codelen +
                         NB_INST_EMPILER + 2 * NB_INST_DEPILER + 2;
-                    printf("AST_OP: codelen = %d\n", p->codelen);        
+                    printf("AST_OP '/': codelen = %d\n", p->codelen);        
                 break;
                 case '%':
                     p->codelen = p->noeud[0]->codelen + 
                         p->noeud[1]->codelen +
                         NB_INST_EMPILER + 2 * NB_INST_DEPILER + 2;
-                    printf("AST_OP: codelen = %d\n", p->codelen);        
+                    printf("AST_OP 'mod': codelen = %d\n", p->codelen);        
                 break;
                 case '>':
                     p->codelen = p->noeud[0]->codelen + 
                         p->noeud[1]->codelen +
-                        NB_INST_EMPILER + 2 * NB_INST_DEPILER + 7;
-                    printf("AST_OP: codelen = %d\n", p->codelen);        
+                        NB_INST_EMPILER + 2 * NB_INST_DEPILER + 9;
+                    printf("AST_OP '>': codelen = %d\n", p->codelen);        
+                break;
+                case '<':
+                    p->codelen = p->noeud[0]->codelen + 
+                        p->noeud[1]->codelen +
+                        NB_INST_EMPILER + 2 * NB_INST_DEPILER + 9;
+                    printf("AST_OP '<': codelen = %d\n", p->codelen);        
                 break;
             }
         break;
@@ -65,15 +71,17 @@ void semantic (ast * p){
         break;
         case AST_AFFECT:
             semantic(p->noeud[0]);
-            p->codelen = p->noeud[0]->codelen + NB_INST_DEPILER + NB_INST_EMPILER + 1;
+            p->codelen = p->noeud[0]->codelen + NB_INST_DEPILER + 1;
             printf("AST_AFFECT: codelen = %d\n", p->codelen);
         break;
         case AST_TQ:
             semantic(p->noeud[0]);
             semantic(p->noeud[1]);
             p->codelen = p->noeud[0]->codelen + 
-                p->noeud[1]->codelen + 2;
+                p->noeud[1]->codelen + 3;
             printf("AST_TQ: codelen = %d\n", p->codelen);
         break;
+        case AST_PRINT:
+            p->codelen = 3;
     }
 }

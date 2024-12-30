@@ -7,6 +7,7 @@ static void PrintLINST(ast *p, char * indent);
 static void PrintAFFECT(ast *p, char * indent);
 static void PrintTQ(ast *p, char * indent);
 static void PrintSI(ast *p, char * indent);
+static void PrintPRINT(ast *p, char * indent);
 
 
 ast * CreerFeuilleNB(int nb){
@@ -58,6 +59,19 @@ ast * CreerNoeudTQ(ast * exp, ast * linst){
   strcpy(p->type_str, "TQ");
   p->noeud[0] = exp;
   p->noeud[1] = linst;
+  return p;
+}
+
+ast * CreerNoeudPRINT( ast * p1){
+  ast * p;
+  INIT_NOEUD(p);
+  p->type = AST_PRINT;
+  strcpy(p->type_str, "PRINT");
+  if(p1->type == AST_ID)
+    strcpy(p->id, p1->id);
+  if(p1->type == AST_NB)
+    p->valeur = p1->valeur;
+  p->noeud[0] = p1;
   return p;
 }
 
@@ -115,6 +129,9 @@ void PrintAst(ast * p){
   	break;
   case AST_TQ:
     PrintTQ(p, indent);
+  break;
+  case AST_PRINT:
+    PrintPRINT(p, indent);
   break;
   case AST_SI:
     PrintSI(p, indent);
@@ -189,6 +206,20 @@ static void PrintTQ(ast *p, char * indent){
   PrintAst(p->noeud[0]);
   PrintAst(p->noeud[1]);
   profondeur--;
+}
+
+static void PrintPRINT(ast *p, char * indent){
+  printf("%s" TXT_BOLD TXT_BLUE "Noeud:  " TXT_NULL "%p\n",indent, p);
+  printf("%s" TXT_BOLD "Type:   " TXT_NULL "%s\n",indent, p->type_str);
+  if (p->type == AST_ID)
+    printf("%s" TXT_BOLD "ID concerné:   " TXT_NULL "%p\n",indent, p->noeud[0]);
+  if (p->type == AST_NB)
+    printf("%s" TXT_BOLD "NB concerné:   " TXT_NULL "%p\n",indent, p->noeud[0]);
+
+  profondeur++;
+  PrintAst(p->noeud[0]);
+  profondeur--;
+  
 }
 
 static void PrintSI(ast *p, char * indent){

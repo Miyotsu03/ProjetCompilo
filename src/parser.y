@@ -36,6 +36,7 @@
 %type <arbre> AFFECT
 %type <arbre> STRUCT_TQ
 %type <arbre> STRUCT_SI
+%type <arbre> STRUCT_PRINT
 
 
 %define parse.error detailed
@@ -45,7 +46,7 @@
 %token <id> ID 
 %token FLECHE "<-"
 %token VAR
-%token MAIN DEBUT FIN TQ FAIRE FTQ SI SINON ALORS FSI
+%token MAIN DEBUT FIN TQ FAIRE FTQ SI SINON ALORS FSI PRINT
 %left '='
 %left '<' '>' '!'
 %left '+' '-'
@@ -89,6 +90,7 @@ INST : EXP ';'    		{$$ = $1; }
 | AFFECT          		{$$ = $1; }
 | STRUCT_TQ           {$$ = $1; }
 | STRUCT_SI           {$$ = $1; }
+| STRUCT_PRINT        {$$ = $1; }
 ;
 
 LINST : INST    		{$$ = CreerNoeudLINST($1, NULL); }
@@ -98,12 +100,17 @@ LINST : INST    		{$$ = CreerNoeudLINST($1, NULL); }
 STRUCT_TQ : TQ EXP FAIRE
               LINST
             FTQ       		{$$ = CreerNoeudTQ($2, $4); }
+;
 
 STRUCT_SI : SI EXP ALORS
               LINST
             SINON
               LINST
             FSI       		{$$ = CreerNoeudSI($2, $4, $6); }
+;
+
+STRUCT_PRINT : PRINT '(' EXP ')'';'  {$$ = CreerNoeudPRINT($3);}
+;
 
 
 %%

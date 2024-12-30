@@ -49,6 +49,7 @@ ID				{LETTRE}({LETTRE}|{CHIFFRE})*
 "SINON"       {return SINON;}
 "ALORS"      	{return ALORS;}
 "FSI"       	{return FSI;}
+"PRINT"       {return PRINT;}
 [-+*/%();<=>!]	{return yytext[0];}
 {NOMBRE}        {yylval.nb = atoi(yytext); return NB;}
 {ID}		{ strcpy(yylval.id, yytext); return ID;}

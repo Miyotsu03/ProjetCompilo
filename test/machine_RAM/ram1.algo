@@ -2,7 +2,8 @@ MAIN()
 VAR toto;
 DEBUT
     toto <- 1;
-    TQ toto > 0 FAIRE
-        toto - 1;
+    TQ toto < 22 FAIRE
+        toto <- toto + 1;
     FTQ
+    PRINT(toto);
 FIN
