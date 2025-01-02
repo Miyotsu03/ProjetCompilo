@@ -128,6 +128,102 @@ static void codegenOP(ast * p){
             __NUM__INST__++;
             fprintf(out, "STORE %d\n", __REG_RESULT__); // Stocke le resultat (0)
         break;
+        case 'd':
+            fprintf(out, "SUB %d\n", __REG_TMP__);   // gauche - droite
+
+            // Comparaison
+            __NUM__INST__++;
+            fprintf(out, "JUMZ %d\n", __NUM__INST__ + 2); // Jump si resultat = 0 (égal)
+
+            // Ici gauche != droite
+            __NUM__INST__++;
+            fprintf(out, "LOAD #1\n"); // Load TRUE (1)
+
+            __NUM__INST__++;
+            fprintf(out, "STORE %d\n", __REG_RESULT__); // Stocke le resulat (1)
+
+            // Jump à la fin de la comparaison
+            __NUM__INST__++;
+            fprintf(out, "JUMP %d\n", __NUM__INST__ + 1); // Jump à la fin
+
+            // Si on jump ici, on doit load False (0)
+            __NUM__INST__++;
+            fprintf(out, "LOAD #0\n"); // Load false (0)
+
+            __NUM__INST__++;
+            fprintf(out, "STORE %d\n", __REG_RESULT__); // Stocke le resultat (0)
+
+        break;
+        case '=':
+            fprintf(out, "SUB %d\n", __REG_TMP__);   // gauche - droite
+
+            // Comparaison
+            __NUM__INST__++;
+            fprintf(out, "JUMZ %d\n", __NUM__INST__ + 2); // Jump si resultat = 0 (égal)
+
+            // Ici gauche != droite
+            __NUM__INST__++;
+            fprintf(out, "LOAD #0\n"); // Load FAUX (0)
+
+            __NUM__INST__++;
+            fprintf(out, "STORE %d\n", __REG_RESULT__); // Stocke le resultat (0)
+
+            // Jump à la fin de la comparaison
+            __NUM__INST__++;
+            fprintf(out, "JUMP %d\n", __NUM__INST__ + 1);
+
+            // Si on jump ici, on doit load True (1)
+            __NUM__INST__++;
+            fprintf(out, "LOAD #1\n");
+
+            __NUM__INST__++;
+            fprintf(out, "STORE %d\n", __REG_RESULT__); // Stocke le resultat (1)
+
+        break;
+        case 'p':
+            fprintf(out, "SUB %d\n", __REG_TMP__);
+
+           // Jump a la fin de la comparaison
+            __NUM__INST__++;
+            fprintf(out, "JUMG %d\n", __NUM__INST__ + 2); // Jump si le resultat est > 0
+
+            // Ici gauche (noeud[0]) < droite (noeud[1])
+            __NUM__INST__++;
+            fprintf(out, "LOAD #1\n"); //retourne 1 si gauche < droite
+            __NUM__INST__++;
+            fprintf(out, "STORE %d\n", __REG_RESULT__); // Stocke le resultat (1)
+
+             // Jump a la fin de la comparaison
+            __NUM__INST__++;
+            fprintf(out, "JUMP %d\n", __NUM__INST__ + 2); // Jump to the end
+
+            __NUM__INST__++;
+            fprintf(out, "LOAD #0\n"); // retourne 0 car gauche > droite 
+            __NUM__INST__++;
+            fprintf(out, "STORE %d\n", __REG_RESULT__); // Stocke le resultat (0)
+        break;
+        case 'g':
+            fprintf(out, "SUB %d\n", __REG_TMP__);
+
+           // Jump a la fin de la comparaison
+            __NUM__INST__++;
+            fprintf(out, "JUML %d\n", __NUM__INST__ + 2); // Jump si le resultat est < 0
+
+            // Ici gauche (noeud[0]) >= droite (noeud[1])
+            __NUM__INST__++;
+            fprintf(out, "LOAD #1\n"); //retourne 1 si gauche < droite
+            __NUM__INST__++;
+            fprintf(out, "STORE %d\n", __REG_RESULT__); // Stocke le resultat (1)
+
+             // Jump a la fin de la comparaison
+            __NUM__INST__++;
+            fprintf(out, "JUMP %d\n", __NUM__INST__ + 2); // Jump to the end
+
+            __NUM__INST__++;
+            fprintf(out, "LOAD #0\n"); // retourne 0 car gauche < droite 
+            __NUM__INST__++;
+            fprintf(out, "STORE %d\n", __REG_RESULT__); // Stocke le resultat (0)
+        break;
 
     }
     EMPILER();    
@@ -181,7 +277,7 @@ static void codegenPRINT(ast * p){
     __NUM__INST__++;
     fprintf(out, "WRITE\n");
 
-    __NUM__INST__;
+    __NUM__INST__++;
     fprintf(out, "NOP \n");
 }
 

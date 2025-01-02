@@ -45,10 +45,13 @@
 %token <nb> NB
 %token <id> ID 
 %token FLECHE "<-"
+%token PPE "<="
+%token PGE ">="
+%token DIF "!="
 %token VAR
 %token MAIN DEBUT FIN TQ FAIRE FTQ SI SINON ALORS FSI PRINT
-%left '='
-%left '<' '>' '!'
+%left '=' "!="
+%left '<' '>' "<=" ">="
 %left '+' '-'
 %left '*' '/' '%'
 %right "<-"
@@ -75,7 +78,9 @@ EXP : NB 			    {$$ = CreerFeuilleNB($1); }
 | EXP '<' EXP			{$$ = CreerNoeudOP('<', $1, $3); }
 | EXP '=' EXP			{$$ = CreerNoeudOP('=', $1, $3); }
 | EXP '>' EXP			{$$ = CreerNoeudOP('>', $1, $3); }
-| EXP '!' EXP			{$$ = CreerNoeudOP('!', $1, $3); }
+| EXP "!=" EXP			{$$ = CreerNoeudOP('d', $1, $3); }
+| EXP "<=" EXP    {$$ = CreerNoeudOP('p', $1, $3);}
+| EXP ">=" EXP    {$$ = CreerNoeudOP('g', $1, $3);}
 ;
 
 DECLA : %empty

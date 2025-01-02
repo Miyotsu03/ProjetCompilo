@@ -57,18 +57,21 @@ extern int yydebug;
     NB = 258,                      /* NB  */
     ID = 259,                      /* ID  */
     FLECHE = 260,                  /* "<-"  */
-    VAR = 261,                     /* VAR  */
-    MAIN = 262,                    /* MAIN  */
-    DEBUT = 263,                   /* DEBUT  */
-    FIN = 264,                     /* FIN  */
-    TQ = 265,                      /* TQ  */
-    FAIRE = 266,                   /* FAIRE  */
-    FTQ = 267,                     /* FTQ  */
-    SI = 268,                      /* SI  */
-    SINON = 269,                   /* SINON  */
-    ALORS = 270,                   /* ALORS  */
-    FSI = 271,                     /* FSI  */
-    PRINT = 272                    /* PRINT  */
+    PPE = 261,                     /* "<="  */
+    PGE = 262,                     /* ">="  */
+    DIF = 263,                     /* "!="  */
+    VAR = 264,                     /* VAR  */
+    MAIN = 265,                    /* MAIN  */
+    DEBUT = 266,                   /* DEBUT  */
+    FIN = 267,                     /* FIN  */
+    TQ = 268,                      /* TQ  */
+    FAIRE = 269,                   /* FAIRE  */
+    FTQ = 270,                     /* FTQ  */
+    SI = 271,                      /* SI  */
+    SINON = 272,                   /* SINON  */
+    ALORS = 273,                   /* ALORS  */
+    FSI = 274,                     /* FSI  */
+    PRINT = 275                    /* PRINT  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -84,7 +87,7 @@ union YYSTYPE
   struct ast * arbre;
  
 
-#line 88 "src/parser.h"
+#line 91 "src/parser.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

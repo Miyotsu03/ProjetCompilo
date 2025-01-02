@@ -23,8 +23,14 @@ ast * CreerNoeudOP(int ope, ast *p1, ast *p2){
 	ast * p;
 	INIT_NOEUD(p);
 	p->type = AST_OP;
-  char operateur[4] = "OP  ";     
-  operateur[3] = ope;             //Afficher l operateur correspondant
+  char operateur[5] = "OP "; 
+  //Conditions si l'operateur fait plus d'un caractère
+  if (ope == 'p')
+    strcat(operateur, "<=");
+  else if (ope == 'g')
+    strcat(operateur, ">=");
+  else  
+    operateur[3] = ope;             //Afficher l operateur correspondant
 	strcpy(p->type_str, operateur);
 	p->ope = ope;
 	p->noeud[0] = p1;
