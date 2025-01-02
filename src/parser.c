@@ -1662,7 +1662,7 @@ yyreduce:
 
   case 29: /* STRUCT_TQ: TQ EXP FAIRE LINST FTQ  */
 #line 107 "src/parser.y"
-                                {(yyval.arbre) = CreerNoeudTQ((yyvsp[-3].arbre), (yyvsp[-1].arbre)); }
+                    {(yyval.arbre) = CreerNoeudTQ((yyvsp[-3].arbre), (yyvsp[-1].arbre)); }
 #line 1667 "src/parser.c"
     break;
 

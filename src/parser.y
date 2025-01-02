@@ -104,7 +104,7 @@ LINST : INST    		{$$ = CreerNoeudLINST($1, NULL); }
 
 STRUCT_TQ : TQ EXP FAIRE
               LINST
-            FTQ       		{$$ = CreerNoeudTQ($2, $4); }
+            FTQ     {$$ = CreerNoeudTQ($2, $4); }
 ;
 
 STRUCT_SI : SI EXP ALORS

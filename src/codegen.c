@@ -14,6 +14,7 @@ static void codegenPRINT(ast * p);
 static void codegenSI(ast * p);
 
 
+
 void codegenINIT(){ 
     int i;
     for (i=0; strcmp(TABLE_SYMB[i].id, "") != 0; i++);
@@ -41,6 +42,9 @@ void codegen(ast * p){
         break;
         case AST_TQ:
             codegenTQ(p);
+        break;
+        case AST_SI:
+            codegenSI(p);
         break;
         case AST_PRINT:
             codegenPRINT(p);
@@ -264,6 +268,20 @@ static void codegenTQ(ast * p){
     fprintf(out, "NOP \n");
 }
 
+static void codegenSI(ast * p){
+    codegen(p->noeud[0]);
+    __NUM__INST__++;
+    fprintf(out, "LOAD %d\n", __REG_RESULT__); //Registre resultat de comparaisons
+    __NUM__INST__++;
+    fprintf(out, "JUMZ %d\n", __NUM__INST__ + p->noeud[1]->codelen + p->noeud[2]->codelen);
+    codegen(p->noeud[1]);
+    __NUM__INST__++;
+    fprintf(out, "JUMP %d\n", __NUM__INST__ + p->noeud[2]->codelen);
+    codegen(p->noeud[2]);
+    fprintf(out, "NOP\n");
+}
+
+
 static void codegenPRINT(ast * p){
     if (p->noeud[0]->type == AST_NB){
         __NUM__INST__++;
@@ -281,13 +299,3 @@ static void codegenPRINT(ast * p){
     fprintf(out, "NOP \n");
 }
 
-static void codegenSI(ast * p){
-    codegen(p->noeud[0]);
-    __NUM__INST__++;
-    fprintf(out, "JUMZ %d\n", __NUM__INST__ + p->noeud[1]->codelen + p->noeud[2]->codelen);
-    codegen(p->noeud[1]);
-    __NUM__INST__++;
-    fprintf(out, "JUMP %d\n", __NUM__INST__ + p->noeud[2]->codelen);
-    codegen(p->noeud[2]);
-    fprintf(out, "STOP\n");
-}

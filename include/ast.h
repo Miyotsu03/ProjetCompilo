@@ -20,7 +20,8 @@
     p->valeur = 0;								\
     p->ope = 0;								\
 	  p->noeud[0] = NULL;						\
-    p->noeud[1] = NULL;				\
+    p->noeud[1] = NULL;          \
+    p->noeud[2] = NULL;				\
     p->codelen = 0; \
   }								\
 
