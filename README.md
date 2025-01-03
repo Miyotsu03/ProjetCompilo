@@ -9,6 +9,14 @@ l'utilité de chaque ficihier, et la manière de le compiler/éxecuter.
 
 
 
+COMPILATION ET EXECUTION
+pour compiler ce programme, il suffit dans un premier d'utiliser la commande "make" sous Linux.
+Ensuite, il faut utiliser la ligne de commande suivante:
+	./bin/arc <chemin_programme_test>
+ (Il y a quelques exemples dans le dossier "test" de base)
+
+
+
 Tout d'abord, il faut définir le langage reconnu par le compilateur. Il est implicitement défini dans le fichier src/parser.y, 
 mais explicitement ça donne comme suit:
 
@@ -109,3 +117,4 @@ Gestion de l'analyse lexicale jusqu'à la génération de code des éléments su
     - Boucle Tant Que (TQ)
     - Structure Conditionnelle SI ALORS SINON
     - L'instruction PRINT
+
