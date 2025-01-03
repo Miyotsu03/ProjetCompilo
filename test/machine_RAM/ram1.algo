@@ -1,7 +1,13 @@
 MAIN()
 VAR toto;
 DEBUT
-    toto <- 43;
+    toto <- 3;
+    SI toto = 3 ALORS
+        toto <- 43;
+    SINON
+        toto <- 0;
+    FSI
+    PRINT(toto);
     TQ toto != 46 FAIRE
         toto <- toto + 1;
     FTQ
