@@ -54,6 +54,7 @@
 %left '<' '>' "<=" ">="
 %left '+' '-'
 %left '*' '/' '%'
+%left '~'
 %right "<-"
 %start PROGRAMME
 
@@ -81,6 +82,7 @@ EXP : NB 			    {$$ = CreerFeuilleNB($1); }
 | EXP "!=" EXP			{$$ = CreerNoeudOP('d', $1, $3); }
 | EXP "<=" EXP    {$$ = CreerNoeudOP('p', $1, $3);}
 | EXP ">=" EXP    {$$ = CreerNoeudOP('g', $1, $3);}
+| '~' EXP          {$$ = CreerNoeudOP('~', $2, NULL); }
 ;
 
 DECLA : %empty

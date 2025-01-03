@@ -59,9 +59,10 @@ static void codegenNB(ast * p){
 }
 
 static void codegenOP(ast * p){
-    codegen(p->noeud[0]);   //Generation du code des feuilles du noeud
-    codegen(p->noeud[1]);
-
+    codegen(p->noeud[0]);  //Generation du code des feuilles du noeud
+    if (p->ope != '~')
+        codegen(p->noeud[1]);
+    
     DEPILER();      //Generation du code de l'operation
     __NUM__INST__++;
     fprintf(out, "STORE %d\n", __REG_TMP__);
@@ -227,6 +228,16 @@ static void codegenOP(ast * p){
             fprintf(out, "LOAD #0\n"); // retourne 0 car gauche < droite 
             __NUM__INST__++;
             fprintf(out, "STORE %d\n", __REG_RESULT__); // Stocke le resultat (0)
+        break;
+        case '~':
+            __NUM__INST__++;
+            fprintf(out, "LOAD %d\n", __REG_TMP__); // Load la valeur de l'operande
+
+            __NUM__INST__++;
+            fprintf(out, "LOAD #0\n"); // Load 0
+
+            __NUM__INST__++;
+            fprintf(out, "SUB %d\n", __REG_TMP__); // Effectue 0 - operande (negation)
         break;
 
     }

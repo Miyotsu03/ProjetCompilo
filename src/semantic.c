@@ -12,13 +12,13 @@ void semantic (ast * p){
         break;
         case AST_OP:
             semantic(p->noeud[0]);
-            semantic(p->noeud[1]);
+            if (p->ope != '~')
+                semantic(p->noeud[1]);
             
             switch (p->ope){
                 case '+':
-                    p->codelen = p->noeud[0]->codelen + 
-                        p->noeud[1]->codelen +
-                        NB_INST_EMPILER + 2 * NB_INST_DEPILER + 2;
+                    p->codelen = p->noeud[0]->codelen +
+                        NB_INST_EMPILER + NB_INST_DEPILER + 4;
                     printf("AST_OP: codelen = %d\n", p->codelen);        
                 break;
                 case '-':
@@ -68,6 +68,11 @@ void semantic (ast * p){
                         p->noeud[1]->codelen +
                         NB_INST_EMPILER + 2 * NB_INST_DEPILER + 8;
                     printf("AST_OP '<=': codelen = %d\n", p->codelen);        
+                break;
+                case '~':
+                    p->codelen = p->noeud[0]->codelen + 
+                        NB_INST_EMPILER + 2 * NB_INST_DEPILER + 5;
+                    printf("AST_OP '~': codelen = %d\n", p->codelen);        
                 break;
             }
         break;
