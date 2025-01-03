@@ -22,7 +22,8 @@ mais explicitement ça donne comme suit:
 
 PROGRAMME est l'axiome
 Mots clés : MAIN DEBUT FIN TQ FAIRE FTQ SI ALORS SINON FSI PRINT
-le separateur d'instructions est ';'
+Le separateur d'instructions est ';'
+Le moins unaire est représenté par '~'
 
 PROGRAMME:
 	MAIN '(' ')'
@@ -45,7 +46,8 @@ EXP : NB
 | EXP '>' EXP			
 | EXP "!=" EXP		
 | EXP "<=" EXP    
-| EXP ">=" EXP    
+| EXP ">=" EXP
+| '~' EXP  
 
 
 DECLA : %empty
