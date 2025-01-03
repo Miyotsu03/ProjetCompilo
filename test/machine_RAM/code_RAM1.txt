@@ -32,4 +32,4 @@ STORE 9
 NOP
 LOAD 9
 WRITE
-NOP 
+NOP     

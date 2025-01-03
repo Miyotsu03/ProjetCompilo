@@ -30,7 +30,7 @@
 %option noinput
 %option yylineno
 
-NOMBRE          ([1-9][0-9]*|0)
+NOMBRE         ([1-9][0-9]*|0)
 LETTRE			[_a-zA-Z]
 CHIFFRE			[0-9]
 ID				{LETTRE}({LETTRE}|{CHIFFRE})*

@@ -1929,12 +1929,11 @@ int main( int argc, char * argv[] ) {
   if (argc == 3){
     strcpy(exename, argv[2]);
   }
-  exefile = fopen(exename,"w");
+  out = fopen(exename,"w");
   INIT_TS(TABLE_SYMB);
   yyparse();
   Print_ts(TABLE_SYMB);
   PrintAst(ARBRE_ABSTRAIT);
-  out = stdout;
   semantic(ARBRE_ABSTRAIT);
   codegenINIT();
   codegen(ARBRE_ABSTRAIT);

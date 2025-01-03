@@ -260,7 +260,7 @@ static void codegenTQ(ast * p){
     __NUM__INST__++;
     fprintf(out, "LOAD %d\n", __REG_RESULT__); //Registre resultat de comparaisons
     __NUM__INST__++;
-    fprintf(out, "JUMZ %d\n", __NUM__INST__ + p->noeud[1]->codelen);
+    fprintf(out, "JUMZ %d\n", __NUM__INST__ + p->noeud[1]->codelen + 1);
     codegen(p->noeud[1]);
     __NUM__INST__++;
     fprintf(out, "JUMP %d\n", adr1);
