@@ -8,4 +8,7 @@ DEBUT
 	a <- 10;
 	b <- 5;
 	c <- (a+1)*(b-1);
+	PRINT(a);
+	PRINT(b);
+	PRINT(c);
 FIN
