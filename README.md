@@ -8,8 +8,21 @@ Ce README permet la compréhension du projet. Il explique ses fonctionnalités,
 l'utilité de chaque ficihier, et la manière de le compiler/éxecuter.
 
 
+CARACTERISTSIQUES DU COMPILATEUR
+
+Gestion de l'analyse lexicale jusqu'à la génération de code des éléments suivants:
+    - Nombres (NB)
+    - Identificateur (ID)
+    - Affectations (<-)
+    - Listes d'instruction (LINST)
+    - Boucle Tant Que (TQ)
+    - Structure Conditionnelle SI ALORS SINON
+    - L'instruction PRINT
+Le compilateur ne gère en aucun cas les fonctions et n'utilise alors que des variables globales.
+
 
 COMPILATION ET EXECUTION
+
 pour compiler ce programme, il suffit dans un premier d'utiliser la commande "make" sous Linux.
 Ensuite, il faut utiliser la ligne de commande suivante:
 	./bin/arc <chemin_programme_test>
@@ -107,16 +120,3 @@ La génération de code se retrouve dans le fichier src/codegen.c et permet de g
 
 ANALYSE SEMANTIQUE
 L'analyse semantique concerne le fichier src/semantic.c et permet seulement de calculer la taille des bouts de code générés
-
-
-CARACTERISTSIQUES DU COMPILATEUR
-
-Gestion de l'analyse lexicale jusqu'à la génération de code des éléments suivants:
-    - Nombres (NB)
-    - Identificateur (ID)
-    - Affectations (<-)
-    - Listes d'instruction (LINST)
-    - Boucle Tant Que (TQ)
-    - Structure Conditionnelle SI ALORS SINON
-    - L'instruction PRINT
-
